@@ -1,14 +1,12 @@
-import React from 'react'
-import { IoMdArrowDropdown } from "react-icons/io";
+// import React from 'react'
+// import { IoMdArrowDropdown } from "react-icons/io";
 
 
-const CssBlock = () => {
+// const CssBlock = () => {
 
-  return (
-    <div>
-      <header className='code-head '>CSS <span className='text-xl'><IoMdArrowDropdown /></span></header>
-    </div>
-  )
-}
+//   return (
+    
+//   )
+// }
 
-export default CssBlock
+// export default CssBlock

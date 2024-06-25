@@ -83,7 +83,7 @@ const Header = () => {
   }
 
   return (
-    <header className="bg-primary  border-b-[2px] border-[#bfbfbf] px-3 flex items-center justify-between ">
+    <header className="bg-primary  border-b-[1px] border-[#bfbfbf] px-3 flex items-center justify-between ">
 
       {/* Menu info section */}
       <section className="flex ">
