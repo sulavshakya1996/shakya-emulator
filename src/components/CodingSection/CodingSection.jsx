@@ -27,7 +27,7 @@ const CodingSection = () => {
     setOutput(combinedOutput)
   ), [htmlValue, cssValue, jsValue])
 
-  
+
 
 
   return (
