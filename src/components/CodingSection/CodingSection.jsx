@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './CodingSection.css'
 import Split from "react-split";
 
@@ -14,18 +14,20 @@ import { javascript } from "@codemirror/lang-javascript";
 const CodingSection = () => {
 
   const [htmlValue, setHtmlValue] = useState('<!DOCTYPE html>\n<html lang="en">\n<head>\n\t<meta charset="UTF-8" />\n\t<meta name="viewport" content="width=device-width, initial-scale=1.0" />\n\t<title>Document</title>\n</head>\n<body>\n\n</body>\n</html>')
-  console.log(htmlValue)
+
   const [cssValue, setCssValue] = useState('')
-  console.log('css', cssValue)
-
   const [jsValue, setJsValue] = useState('')
-  console.log('js', jsValue)
+  const [output, setOutput] = useState('')
 
+  const combinedOutput = `${htmlValue} 
+  <style>${cssValue}</style>
+  <script> ${jsValue} </script>`
 
+  useEffect(() => (
+    setOutput(combinedOutput)
+  ), [htmlValue, cssValue, jsValue])
 
-
-
-
+  
 
 
   return (
@@ -69,8 +71,8 @@ const CodingSection = () => {
         </section>
 
 
-        <ConsoleBlock />
-        <OutputBlock />
+        <ConsoleBlock jsValue={jsValue} />
+        <OutputBlock srcCode={output} />
 
       </Split>
 
