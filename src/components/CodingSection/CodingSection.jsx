@@ -10,8 +10,11 @@ import CodeMirror from '@uiw/react-codemirror'
 import { html } from '@codemirror/lang-html';
 import { css } from '@codemirror/lang-css';
 import { javascript } from "@codemirror/lang-javascript";
+import { useScreenContext } from "../../context/ScreenContext";
 
 const CodingSection = () => {
+  const { htmlOn, cssOn, jsOn, consoleOn, outputOn } = useScreenContext();
+
 
   const [htmlValue, setHtmlValue] = useState('<!DOCTYPE html>\n<html lang="en">\n<head>\n\t<meta charset="UTF-8" />\n\t<meta name="viewport" content="width=device-width, initial-scale=1.0" />\n\t<title>Document</title>\n</head>\n<body>\n\n</body>\n</html>')
 
@@ -27,54 +30,68 @@ const CodingSection = () => {
     setOutput(combinedOutput)
   ), [htmlValue, cssValue, jsValue])
 
+  //hey
+
 
 
 
   return (
     <div>
-      <Split
-        className="split h-screen"
-        gutterSize={2}
-      >
-        {/* html section */}
-        <section>
-          <h1 className='code-head uppercase'>Html <span className='text-xl'><IoMdArrowDropdown /></span></h1>
+      {htmlOn || cssOn || jsOn || consoleOn || outputOn ? (
+        <Split
+          className="split h-screen"
+          gutterSize={2}
+          minSize={300}
+          key={`${htmlOn}-${cssOn}-${jsOn}-${consoleOn}-${outputOn}`}
 
-          <div>
-            <CodeMirror
-              value={htmlValue}
+        >
+          {/* html section */}
+          {htmlOn &&
+            <section>
+              <h1 className='code-head uppercase'>Html <span className='text-xl'><IoMdArrowDropdown /></span></h1>
 
-              extensions={[html()]}
-              onChange={(value) => { setHtmlValue(value) }}
-            />
-          </div>
-        </section>
+              <div>
+                <CodeMirror
+                  value={htmlValue}
 
-        {/* css section */}
-        <section>
-          <h1 className='code-head '>CSS{
+                  extensions={[html()]}
+                  onChange={(value) => { setHtmlValue(value) }}
+                />
+              </div>
+            </section>
+          }
+          {/* css section */}
+          {cssOn && <section>
+            <h1 className='code-head '>CSS{
 
-          } <span className='text-xl'><IoMdArrowDropdown /></span></h1>
-
-
-          <CodeMirror value={cssValue}
-            extensions={[css()]}
-            onChange={(value) => setCssValue(value)} />
-
-        </section>
-
-        {/* jsSection */}
-        <section>
-          <h1 className='code-head uppercase'>JavaScript <span className='text-xl'><IoMdArrowDropdown /></span></h1>
-
-          <CodeMirror value={jsValue} extensions={[javascript()]} onChange={(value) => setJsValue(value)} />
-        </section>
+            } <span className='text-xl'><IoMdArrowDropdown /></span></h1>
 
 
-        <ConsoleBlock jsValue={jsValue} />
-        <OutputBlock srcCode={output} />
+            <CodeMirror value={cssValue}
+              extensions={[css()]}
+              onChange={(value) => setCssValue(value)} />
 
-      </Split>
+          </section>
+          }
+
+
+          {/* jsSection */}
+          {jsOn && <section>
+            <h1 className='code-head uppercase'>JavaScript <span className='text-xl'><IoMdArrowDropdown /></span></h1>
+
+            <CodeMirror value={jsValue} extensions={[javascript()]} onChange={(value) => setJsValue(value)} />
+          </section>
+          }
+
+
+          {consoleOn && <ConsoleBlock jsValue={jsValue} />
+          }
+
+          {outputOn && <OutputBlock srcCode={output} />}
+
+        </Split>
+      ) : null}
+
 
     </div>
   )
