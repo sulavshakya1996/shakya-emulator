@@ -5,7 +5,7 @@ import { executeCode } from "../../../features/api";
 const ConsoleBlock = ({ jsValue }) => {
 
   const [output, setOutput] = useState(null);
-  console.log('console', output)
+
 
 
   const onButtonClick = () => setOutput(null)

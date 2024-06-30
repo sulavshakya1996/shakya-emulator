@@ -2,12 +2,11 @@ import React from "react";
 
 const OutputBlock = ({ srcCode }) => {
 
-  console.log('output', srcCode)
   return (
-    <div>
+    <div className="">
       <h1 className="output-head">Output</h1>
 
-      <iframe srcDoc={srcCode} frameborder="0" />
+      <iframe srcDoc={srcCode} className="h-full w-full " frameborder="0" />
     </div>
   )
 }

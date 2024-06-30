@@ -13,25 +13,66 @@ import { javascript } from "@codemirror/lang-javascript";
 import { useScreenContext } from "../../context/ScreenContext";
 
 const CodingSection = () => {
+
+  //context
   const { htmlOn, cssOn, jsOn, consoleOn, outputOn } = useScreenContext();
 
+  //inital html value
+  const initialHtml = '<!DOCTYPE html>\n<html lang="en">\n<head>\n\t<meta charset="UTF-8" />\n\t<meta name="viewport" content="width=device-width, initial-scale=1.0" />\n\t<title>Document</title>\n</head>\n<body>\n\n</body>\n</html>'
 
-  const [htmlValue, setHtmlValue] = useState('<!DOCTYPE html>\n<html lang="en">\n<head>\n\t<meta charset="UTF-8" />\n\t<meta name="viewport" content="width=device-width, initial-scale=1.0" />\n\t<title>Document</title>\n</head>\n<body>\n\n</body>\n</html>')
+  //useState for getting the value
+  const [htmlValue, setHtmlValue] = useState(initialHtml)
 
   const [cssValue, setCssValue] = useState('')
   const [jsValue, setJsValue] = useState('')
   const [output, setOutput] = useState('')
 
+  //seting in local storage
+  const setItemLocal = (key, value) => {
+    localStorage.setItem(key, value)
+  }
+
+  //geting from local storage
+  const getLocalItem = (key) => (
+    localStorage.getItem(key)
+  )
+
+  //output
   const combinedOutput = `${htmlValue} 
   <style>${cssValue}</style>
   <script> ${jsValue} </script>`
+
 
   useEffect(() => (
     setOutput(combinedOutput)
   ), [htmlValue, cssValue, jsValue])
 
-  //hey
+  //saving work in local storage
+  useEffect(() => {
+    if (getLocalItem('html') !== null) {
+      setHtmlValue(getLocalItem('html'))
+      console.log('hir')
 
+    } else {
+      setHtmlValue(initialHtml)
+      console.log('no hit')
+
+    }
+
+    if (getLocalItem('css') !== null) {
+      console.log('css pugyo')
+      setCssValue(getLocalItem('css'))
+    } else {
+      console.log('css pugena')
+      setCssValue('')
+    }
+
+
+    if (getLocalItem('javaScript') !== null) {
+      setJsValue(getLocalItem('javaScript'))
+    } else { setJsValue('') }
+
+  }, [])
 
 
 
@@ -41,35 +82,56 @@ const CodingSection = () => {
         <Split
           className="split h-screen"
           gutterSize={2}
-          minSize={300}
+
           key={`${htmlOn}-${cssOn}-${jsOn}-${consoleOn}-${outputOn}`}
 
         >
           {/* html section */}
           {htmlOn &&
             <section>
-              <h1 className='code-head uppercase'>Html <span className='text-xl'><IoMdArrowDropdown /></span></h1>
+              <div className="pr-5 flex flex-col md:flex-row items-baseline justify-between">
+
+                <h1 className='code-head uppercase'>Html <span className='text-xl'><IoMdArrowDropdown /></span></h1>
+
+                <button onClick={() => {
+                  localStorage.removeItem('html')
+                  setHtmlValue(initialHtml)
+                }} className="bg-red-600 font-semibold text-white text-[12px] px-2 py-[2px] boreder border-red-950 rounded-[5px]">Reset</button>
+              </div>
 
               <div>
                 <CodeMirror
                   value={htmlValue}
-
                   extensions={[html()]}
-                  onChange={(value) => { setHtmlValue(value) }}
+                  onChange={(value) => {
+                    setHtmlValue(value)
+                    setItemLocal('html', value)
+                  }}
+
+
                 />
               </div>
             </section>
           }
           {/* css section */}
           {cssOn && <section>
-            <h1 className='code-head '>CSS{
+            <div className="pr-5 flex flex-col md:flex-row items-baseline justify-between">
+              <h1 className='code-head '>CSS <span className='text-xl'><IoMdArrowDropdown /></span></h1>
 
-            } <span className='text-xl'><IoMdArrowDropdown /></span></h1>
+              <button onClick={() => {
+                localStorage.removeItem('css')
+                setCssValue('')
+              }} className="bg-red-600 font-semibold text-white text-[12px] px-2 py-[2px] boreder border-red-950 rounded-[5px]">Reset</button>
+            </div>
 
 
             <CodeMirror value={cssValue}
               extensions={[css()]}
-              onChange={(value) => setCssValue(value)} />
+              onChange={(value) => {
+                setCssValue(value)
+                setItemLocal('css', value)
+              }}
+            />
 
           </section>
           }
@@ -77,9 +139,20 @@ const CodingSection = () => {
 
           {/* jsSection */}
           {jsOn && <section>
-            <h1 className='code-head uppercase'>JavaScript <span className='text-xl'><IoMdArrowDropdown /></span></h1>
+            <div className="pr-5 flex flex-col md:flex-row items-baseline justify-between">
 
-            <CodeMirror value={jsValue} extensions={[javascript()]} onChange={(value) => setJsValue(value)} />
+              <h1 className='code-head uppercase'>JavaScript <span className='text-xl'><IoMdArrowDropdown /></span></h1>
+
+              <button onClick={() => {
+                localStorage.removeItem('javaScript')
+                setJsValue('')
+              }} className="bg-red-600 font-semibold text-white text-[12px] px-2 py-[2px] boreder border-red-950 rounded-[5px]">Reset</button>
+            </div>
+
+            <CodeMirror value={jsValue} extensions={[javascript()]} onChange={(value) => {
+              setJsValue(value)
+              setItemLocal('javaScript', value)
+            }} />
           </section>
           }
 
