@@ -77,10 +77,10 @@ const CodingSection = () => {
 
 
   return (
-    <div>
+    <div className="h-screen ">
       {htmlOn || cssOn || jsOn || consoleOn || outputOn ? (
         <Split
-          className="split h-screen"
+          className="split h-full"
           gutterSize={2}
 
           key={`${htmlOn}-${cssOn}-${jsOn}-${consoleOn}-${outputOn}`}
@@ -89,14 +89,14 @@ const CodingSection = () => {
           {/* html section */}
           {htmlOn &&
             <section>
-              <div className="pr-5 flex flex-col md:flex-row items-baseline justify-between">
+              <div className="pr-5 flex flex-col md:flex-row items-start md:items-baseline justify-between gap-y-1 mb-2">
 
                 <h1 className='code-head uppercase'>Html <span className='text-xl'><IoMdArrowDropdown /></span></h1>
 
                 <button onClick={() => {
                   localStorage.removeItem('html')
                   setHtmlValue(initialHtml)
-                }} className="bg-red-600 font-semibold text-white text-[12px] px-2 py-[2px] boreder border-red-950 rounded-[5px]">Reset</button>
+                }} className="ml-[6px] bg-red-600 font-semibold text-white text-[12px] px-2 py-[2px] boreder border-red-950 rounded-[5px]">Reset</button>
               </div>
 
               <div>
@@ -115,13 +115,13 @@ const CodingSection = () => {
           }
           {/* css section */}
           {cssOn && <section>
-            <div className="pr-5 flex flex-col md:flex-row items-baseline justify-between">
+            <div className=" pr-5 flex flex-col md:flex-row items-start md:items-baseline justify-between gap-y-1 mb-2">
               <h1 className='code-head '>CSS <span className='text-xl'><IoMdArrowDropdown /></span></h1>
 
               <button onClick={() => {
                 localStorage.removeItem('css')
                 setCssValue('')
-              }} className="bg-red-600 font-semibold text-white text-[12px] px-2 py-[2px] boreder border-red-950 rounded-[5px]">Reset</button>
+              }} className="ml-2 bg-red-600 font-semibold text-white text-[12px] px-2 py-[2px] boreder border-red-950 rounded-[5px]">Reset</button>
             </div>
 
 
@@ -139,14 +139,14 @@ const CodingSection = () => {
 
           {/* jsSection */}
           {jsOn && <section>
-            <div className="pr-5 flex flex-col md:flex-row items-baseline justify-between">
+            <div className=" pr-5 flex flex-col md:flex-row items-start md:items-baseline justify-between gap-y-1 mb-2">
 
               <h1 className='code-head uppercase'>JavaScript <span className='text-xl'><IoMdArrowDropdown /></span></h1>
 
               <button onClick={() => {
                 localStorage.removeItem('javaScript')
                 setJsValue('')
-              }} className="bg-red-600 font-semibold text-white text-[12px] px-2 py-[2px] boreder border-red-950 rounded-[5px]">Reset</button>
+              }} className="ml-[6px] bg-red-600 font-semibold text-white text-[12px] px-2 py-[2px] boreder border-red-950 rounded-[5px]">Reset</button>
             </div>
 
             <CodeMirror value={jsValue} extensions={[javascript()]} onChange={(value) => {

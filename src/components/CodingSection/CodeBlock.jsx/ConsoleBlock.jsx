@@ -28,11 +28,11 @@ const ConsoleBlock = ({ jsValue }) => {
 
   return (
     <div>
-      <div className="pr-5 flex flex-col md:flex-row items-baseline justify-between">
+      <div className="pr-5 flex flex-col md:flex-row items-start md:items-baseline justify-between gap-y-1 mb-2">
         <h1 className="output-head">Console</h1>
-        <button onClick={onButtonClick} className="px-2 text-[12px] bg-primary border border-primary-dark rounded-md">Clear</button>
+        <button onClick={onButtonClick} className="ml-[6px] px-2 text-[12px] bg-primary border border-primary-dark rounded-md">Clear</button>
       </div>
-      <iframe srcDoc={output?.stdout} frameborder="0"></iframe>
+      <iframe srcDoc={output?.stdout} className="h-[95%] w-full" frameborder="0"></iframe>
     </div>
   )
 }
