@@ -67,13 +67,6 @@ const Header = () => {
                 <a href={el.link} >{el.title}</a>
                 {el.content && < IoMdArrowDropdown className="text-lg" />
                 }
-                {open && el.content ? (
-                  <div>
-                    <p>{el.content}</p>
-
-                  </div>
-                ) : null}
-
 
               </div>
             ))}
